@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -9,7 +12,7 @@ public class Round {
     private static Logger LOGGER = Logger.getLogger(Round.class.getName());
 
     private int round;
-    private ArrayList<Actor> actors = new ArrayList<>();
+    public List<Actor> actors = new ArrayList<>();
     private Actor currentActor;
     private int nextActorIndex;
 
@@ -40,8 +43,20 @@ public class Round {
     
     public void addActor(String name, int actorInit) {
     	Actor actor = new Actor (name, actorInit);
-    	
     	actors.add(actor);
+    	Collections.sort(actors, new Comparator<Actor>() {
+    	    @Override public int compare(Actor a1, Actor a2) {
+    	        return a2.getActorInit()- a1.getActorInit();	//	Descending
+    	    }
+    	});
+    }
+    
+    public Actor findActor(String name) {
+    	for (int i = 0; i < actors.size(); i++) {
+    		if (actors.get(i).getName().equals(name))
+    			return actors.get(i);
+    	}
+    	return new Actor();
     }
 
     //  Also called by roundLabel

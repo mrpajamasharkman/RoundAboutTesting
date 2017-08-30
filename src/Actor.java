@@ -66,7 +66,7 @@ public class Actor {
     }
 
     public String toString() {
-        return  "Name:\t\t\n" + getName() +
+        return  "Name:\t\t" + getName() +
                 "\nInitiative:\t" + getActorInit() +
                 getEffects();
     }

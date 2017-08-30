@@ -33,12 +33,19 @@ public class Driver {
 	        	case "set round"	:
 	        		break;
 	        	case "add actor"	:
-	        		round.addActor(scanner.nextLine(), scanner.nextInt());
+	        		String actorName = "";
+	        		while (!scanner.hasNextInt())
+	        			actorName += scanner.next() + " ";
+	        		round.addActor(actorName, scanner.nextInt());
 	        		break;
 	        	case "hide actor"	:
 	        		break;
 	        	case "add effect"	:
-	        		round.getActor(scanner.nextInt()).addEffect(scanner.nextLine(), scanner.nextInt());
+	        		String name = scanner.next();
+	        		String description = "";
+	        		while (!scanner.hasNextInt())	//	Pulls tokens until an integer is read
+	        			description += scanner.next() + " ";
+	        		round.findActor(name).addEffect(description, scanner.nextInt());
 	        		break;
 	        	case "hide effect"	:
 	        		break;
