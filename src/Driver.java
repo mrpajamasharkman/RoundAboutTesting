@@ -24,30 +24,50 @@ public class Driver {
         
         do {
         	//	CURRENT INFORMATION BLOCK
+        	System.out.println("ROUND NUMBER:\t" + round.getRound());
+        	System.out.println("CURRENT ACTOR:\t" + round.getCurrentActor().getName());
         	System.out.println("INIT\tNAME\n=====================");
 	        System.out.print(round.getActorList());
 	        
 	        switch (input = scanner.nextLine()) {
-	        	case "next actor"	:
+	        	case "next round"	:
+	        		round.setRound(round.getRound() + 1);
 	        		break;
 	        	case "set round"	:
+	        		System.out.print("How many rounds from now:\t");
+	        		round.setRound(round.getRound() + scanner.nextInt());
+	        		break;
+	        	case "next actor"	:
+	        		round.nextActor();
 	        		break;
 	        	case "add actor"	:
-	        		String actorName = "";
+	        		System.out.print("Name:\t");
+	        		input = "";
 	        		while (!scanner.hasNextInt())
-	        			actorName += scanner.next() + " ";
-	        		round.addActor(actorName, scanner.nextInt());
+	        			input += scanner.next() + " ";
+	        		System.out.print("Init:\t");
+	        		round.addActor(input, scanner.nextInt());
 	        		break;
 	        	case "hide actor"	:
+	        		System.out.print("Name: \t");
+	        		round.findActor(scanner.nextLine()).setActive(false);
 	        		break;
 	        	case "add effect"	:
-	        		String name = scanner.next();
+	        		System.out.print("Actor:\t");
+	        		input = scanner.nextLine();
+	        		System.out.print("Desc:\t");
 	        		String description = "";
 	        		while (!scanner.hasNextInt())	//	Pulls tokens until an integer is read
 	        			description += scanner.next() + " ";
-	        		round.findActor(name).addEffect(description, scanner.nextInt());
+	        		System.out.print("Dur:\t");
+	        		round.findActor(input).addEffect(description, scanner.nextInt());
 	        		break;
 	        	case "hide effect"	:
+	        		System.out.print("Actor:\t");
+	        		input = scanner.nextLine();
+	        		System.out.print("Desc:\t");
+	        		description = scanner.nextLine();
+	        		round.findActor(input).findEffect(description).setActive(false);
 	        		break;
 	        	default				:
 	        		break;

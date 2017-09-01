@@ -50,5 +50,5 @@ public class Effect {
     
     public void setActive(boolean active) { this.active = active; }
 
-    public String toString() { return description + "\t" + duration; }
+    public String toString() { return description + "\t\t" + duration; }
 }

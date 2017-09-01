@@ -28,8 +28,6 @@ public class Actor {
     public void change(int change, int currentInit) {
         for (int i = 0; i < effects.size(); i++) {
             effects.get(i).change(change);
-            if (effects.get(i).getDuration() <= 0)
-                effects.remove(i);
         }
         // Must find how to use currentInit to properly check whether an effect's duration should change
     }
@@ -37,6 +35,14 @@ public class Actor {
     public void addEffect(String description, int duration, int initCount) {
     	Effect effect = new Effect(description, duration, initCount);
     	effects.add(effect);
+    }
+    
+    public Effect findEffect(String description) {
+    	for (int i = 0; i < effects.size(); i++) {
+    		if (effects.get(i).getDescription().equals(description))
+    			return effects.get(i);
+    	}
+    	return new Effect();
     }
 
     public String getName() { return name; }
@@ -47,7 +53,8 @@ public class Actor {
         String printEffects = "";
 
         for (int i = 0; i < effects.size(); i++)
-            printEffects += "\t+" + effects.get(i).getDescription() + "\t" + effects.get(i).getDuration() + "\n";
+        	if (effects.get(i).isActive())
+        		printEffects += "\t" + effects.get(i).toString() + "\n";
 
         return printEffects;
     }

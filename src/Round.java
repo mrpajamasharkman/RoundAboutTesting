@@ -18,15 +18,14 @@ public class Round {
 
     public Round() {
         setRound(0);
-
-        setActor(null);
-        setNextActorIndex(0);
+        setCurrentActor(null);
+        setNextActorIndex(1);
     }
 
     //  Called by nextActor button
     public void nextActor() {
 
-    	if (actors.isEmpty()) { return; }
+    	if (actors.isEmpty()) return;
     	
     	//	Checking the initiative of each effect for each actor and changing as necessary???
     	for (int i = 0; i < actors.size(); i++)
@@ -37,12 +36,16 @@ public class Round {
             setRound(getRound() + 1);
         }
 
-        setActor(actors.get(getNextActorIndex()));
+        setCurrentActor(actors.get(getNextActorIndex()));
         setNextActorIndex(nextActorIndex + 1);
     }
     
     public void addActor(String name, int actorInit) {
     	Actor actor = new Actor (name, actorInit);
+    	
+    	if (actors.isEmpty())
+    		setCurrentActor(actor);
+    	
     	actors.add(actor);
     	Collections.sort(actors, new Comparator<Actor>() {
     	    @Override public int compare(Actor a1, Actor a2) {
@@ -78,14 +81,17 @@ public class Round {
     public String getActorList() {
     	String actorList = "";
     	
-    	for (int i = 0; i < actors.size(); i++) {
-    		actorList += actors.get(i).getActorInit() + "\t";
-    		actorList += actors.get(i).getName() + "\n";
-    		actorList += actors.get(i).getEffects(); 
-    	}
+    	for (int i = 0; i < actors.size(); i++)
+    		if (actors.get(i).isActive()) {
+	    		actorList += actors.get(i).getActorInit() + "\t";
+	    		actorList += actors.get(i).getName() + "\n";
+	    		actorList += actors.get(i).getEffects();
+    		}
     	
     	return actorList;
     }
+    
+    public Actor getCurrentActor() { return currentActor; }
 
     public int getNextActorIndex() { return nextActorIndex; }
 
@@ -98,7 +104,7 @@ public class Round {
         this.round = round;
     }
 
-    public void setActor(Actor actor) { currentActor = actor; }
-
+    public void setCurrentActor(Actor actor) { currentActor = actor; }
+    
     public void setNextActorIndex(int nextActorIndex) { this.nextActorIndex = nextActorIndex; }
 }
