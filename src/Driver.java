@@ -24,14 +24,16 @@ public class Driver {
         round.addActor("Zambambo", 6);
         
         do {
-        	//	CURRENT INFORMATION BLOCK
+	        //	CURRENT INFORMATION BLOCK
         	System.out.println("ROUND NUMBER:\t" + round.getRound());
         	System.out.println("ACTUAL TIME:\t" + round.getTime());
         	System.out.println("CURRENT ACTOR:\t" + round.getCurrentActor().getName());
         	System.out.println("INITIATIVE:\t" + round.getCurrentActor().getActorInit());
         	System.out.println("INIT\tNAME\n=====================");
 	        System.out.print(round.getActorList());
-	        
+
+	        System.out.print(">>\t");
+
 	        switch (input = scanner.nextLine()) {
 	        	case "nr"	:
 	        		round.setRound(round.getRound() + 1);
