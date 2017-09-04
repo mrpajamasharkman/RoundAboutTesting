@@ -64,7 +64,6 @@ public class Actor {
     }
 
     //	Getters
-    
     public String getName() { return name; }
 
     public int getActorInit() { return actorInit; }
@@ -82,7 +81,6 @@ public class Actor {
     public boolean isActive() { return active; }
 
     //	Setters
-    
     public void setName(String name) { this.name = name; }
 
     public void setActorInit(int actorInit) { this.actorInit = actorInit; }
