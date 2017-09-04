@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * Created by Lucas on 8/18/2017.
+ * @author Lucas
+ * @since 2017-9-3
+ * 
  */
 
 public class Round {
@@ -19,17 +21,16 @@ public class Round {
     public Round() {
         setRound(0);
         setCurrentActor(null);
-        setNextActorIndex(1);
+        setNextActorIndex(0);
     }
 
-    //  Called by nextActor button
     public void nextActor() {
 
     	if (actors.isEmpty()) return;
     	
-    	//	Checking the initiative of each effect for each actor and changing as necessary???
+//    	Here is where changing effect durations based off of initiative count should begin
     	for (int i = 0; i < actors.size(); i++)
-    		actors.get(i).change(0, currentActor.getActorInit());
+    		actors.get(i).change(0, getRound());
     	
         if (nextActorIndex >= actors.size()) {
             nextActorIndex = 0;
@@ -40,6 +41,10 @@ public class Round {
         setNextActorIndex(nextActorIndex + 1);
     }
     
+    /**
+     * @param name
+     * @param actorInit
+     */
     public void addActor(String name, int actorInit) {
     	Actor actor = new Actor (name, actorInit);
     	
@@ -47,6 +52,10 @@ public class Round {
     		setCurrentActor(actor);
     	
     	actors.add(actor);
+    	if (actors.size() == 1)
+    		setNextActorIndex(1);
+    	
+    	//	Sorting actors
     	Collections.sort(actors, new Comparator<Actor>() {
     	    @Override public int compare(Actor a1, Actor a2) {
     	        return a2.getActorInit()- a1.getActorInit();	//	Descending
@@ -54,6 +63,10 @@ public class Round {
     	});
     }
     
+    /**
+     * @param name
+     * @return
+     */
     public Actor findActor(String name) {
     	for (int i = 0; i < actors.size(); i++) {
     		if (actors.get(i).getName().equals(name))
@@ -62,22 +75,21 @@ public class Round {
     	return new Actor();
     }
 
-    //  Also called by roundLabel
+    //	Getters
     public int getRound() { return round; }
 
-    //  Called by actualTime
     public String getTime() {
         int seconds = getRound() * 6;
         int minutes = seconds / 60;
         int hours = seconds / 3600;
         seconds %= 60;
-
-        return hours + ":" + minutes + ":" + seconds;
+        
+        //	Formats time string as HH:MM:SS (e.g. "14:33:48") - seconds should always be a multiple of 6
+        return String.format("%1$02d:%2$02d:%3$02d", hours, minutes, seconds);
     }
     
     public Actor getActor(int index) { return actors.get(index); }
 
-    //  Called by actorList
     public String getActorList() {
     	String actorList = "";
     	
@@ -94,13 +106,19 @@ public class Round {
     public Actor getCurrentActor() { return currentActor; }
 
     public int getNextActorIndex() { return nextActorIndex; }
-
+    
+    //	Setters
     public void setRound (int round) {
         int change = round - this.round;
 
         for (int i = 0; i < actors.size(); i++)
-            actors.get(i).change(change, 0);
+            actors.get(i).change(change, getRound());
 
+        if (!actors.isEmpty()) {
+        	currentActor = actors.get(0);
+        	setNextActorIndex(1);
+        }
+        
         this.round = round;
     }
 
