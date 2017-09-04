@@ -1,4 +1,5 @@
 # RoundAboutTesting
+<<<<<<< HEAD
 
 The basic structure of how rounds are tracked goes like this:
 
@@ -30,3 +31,8 @@ Operations the Driver can perform:
 * __hide actor__ - Hides an actor appropriately. _Should_ work with duplicate names, but currently doesn't. Need to figure out how to do it with duplicate names. Probably best to simply ignore this and require unique names for each actor.
 * __add effect__ - Adds an effect and a duration to an actor's list of effects. _Should_ also save the initiative count that it was added, but doesn't. Probably simple! Doesn't seem unreasonable.
 * __hide effect__ - Hides an effect appropriately. _Should_ work with duplicate descriptions, but currently doesn't. Need to figure out how to do it with duplicate descriptions. __Going to implement by always adding effects to the list at index 0. That way, the effect to hide is always the first one found. Also, to ensure that going back through rounds works, there will be two more ints added - one which tracks when the duration of the effect first started, and the end time, which is logged when the effect is hidden, and removed when it is un-hidden.__
+=======
+A testbed for the actual round/actor/effect tracking for RoundAbout. Made for Eclipse. Android UI can be hooked up later.
+
+If this isn't done by the time I'm out of UTSA, I'll refactor it to work with IntelliJ, because... that's what I prefer working with now. But this should be done by then. (TIMESTAMP 8/30/2017 because I want to humiliate myself later when this isn't done.)
+>>>>>>> origin/master
