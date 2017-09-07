@@ -13,8 +13,9 @@ public class Effect {
     private static Logger LOGGER = Logger.getLogger(Effect.class.getName());
 
     private String description;
-    private int duration, initCount, startRound, endRound = -1;
+    private int duration, initCount, startRound, endRound;
     private boolean active, ticked;
+    private final int DEFAULT = -1;
 
     public Effect() { }
 
@@ -29,6 +30,7 @@ public class Effect {
         this.duration = duration;
         this.initCount = initCount;
         this.startRound = startRound;
+        this.endRound = DEFAULT;
         active = true;
     }
     
@@ -41,9 +43,11 @@ public class Effect {
     	duration -= change;
     	
     	if (duration <= 0)
-    		setInactive(currentRound);
-    	if ((duration > 0) || (endRound == -1))
-    		setActive();
+			setInactive(currentRound);
+		else if (endRound <= currentRound && endRound != DEFAULT)
+    		setInactive(endRound);
+		else if (endRound >= currentRound || duration > 0)
+			setActive();
     }
 
     //	Getters
