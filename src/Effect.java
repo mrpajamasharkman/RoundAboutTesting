@@ -40,14 +40,16 @@ public class Effect {
      */
     
     public void change(int change, int currentRound) {
-    	duration -= change;
+    	setDuration(getDuration() - change);
     	
-    	if (duration <= 0)
+    	if (getDuration() <= 0)
 			setInactive(currentRound);
-		else if (endRound <= currentRound && endRound != DEFAULT)
+		else if (getEndRound() <= currentRound && getEndRound() != DEFAULT)
     		setInactive(endRound);
-		else if (endRound >= currentRound || duration > 0)
+		else if (getEndRound() >= currentRound || getDuration() > 0) {
 			setActive();
+			setEndRound(DEFAULT);
+		}
     }
 
     //	Getters
@@ -76,7 +78,7 @@ public class Effect {
     
     public void setActive() { this.active = true; }
     
-    public void setInactive(int endRound) { this.active = false; this.endRound = endRound; }
+    public void setInactive(int endRound) { this.active = false; setEndRound(endRound); }
 
     @Override
     //	toString
