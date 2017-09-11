@@ -64,7 +64,7 @@ public class Driver {
 	        		String description = "";
 	        		description = scanner.nextLine();
 	        		System.out.print("Dur:\t");
-	        		round.findActor(input).addEffect(description, scanner.nextInt(), 0, round.getRound());
+	        		round.findActor(input).addEffect(description, scanner.nextInt(), round.getRound(), round.getRound());
 	        		break;
 	        	case "he"	:
 	        		System.out.print("Actor:\t");
