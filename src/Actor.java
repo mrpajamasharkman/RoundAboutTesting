@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 /**
  * @author Lucas
@@ -11,7 +10,6 @@ import java.util.logging.Logger;
  */
 
 public class Actor {
-    private static Logger LOGGER = Logger.getLogger(Actor.class.getName());
 
     private String name;
     private int actorInit;
@@ -48,12 +46,13 @@ public class Actor {
      */
     public void addEffect(String description, int duration, int initCount, int startRound) {
     	Effect effect = new Effect(description, duration, initCount, startRound);
-    	effects.add(0, effect);
+    	effects.add(effect);
+    	System.out.println("EFFECT " + effects.get(0).getDescription() + " ADDED CORRECTLY");
     }
     
     /**
      * @param description
-     * @return
+     * @return searched for Effect object
      */
     public Effect findEffect(String description) {
     	for (int i = 0; i < effects.size(); i++) {
@@ -68,14 +67,14 @@ public class Actor {
 
     public int getActorInit() { return actorInit; }
 
-    public String getEffects() {
-        String printEffects = "";
+    public String getEffectListString() {
+        String effectList = "";
 
         for (int i = 0; i < effects.size(); i++)
         	if (effects.get(i).isActive())
-        		printEffects += "\t" + effects.get(i).toString() + "\n";
+        		effectList += "\t" + effects.get(i).toString() + "\n";
 
-        return printEffects;
+        return effectList;
     }
     
     public boolean isActive() { return active; }
@@ -92,6 +91,6 @@ public class Actor {
     public String toString() {
         return  "Name:\t\t" + getName() +
                 "\nInitiative:\t" + getActorInit() +
-                getEffects();
+                getEffectListString();
     }
 }

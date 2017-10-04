@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * @author Lucas
@@ -11,8 +10,7 @@ import java.util.logging.Logger;
  */
 
 public class Round {
-    private static Logger LOGGER = Logger.getLogger(Round.class.getName());
-
+	
     private int round;
     public List<Actor> actors = new ArrayList<>();
     private Actor currentActor;
@@ -65,7 +63,7 @@ public class Round {
     
     /**
      * @param name
-     * @return
+     * @return searched for Actor object
      */
     public Actor findActor(String name) {
     	for (int i = 0; i < actors.size(); i++) {
@@ -90,14 +88,14 @@ public class Round {
     
     public Actor getActor(int index) { return actors.get(index); }
 
-    public String getActorList() {
+    public String getActorListString() {
     	String actorList = "";
     	
     	for (int i = 0; i < actors.size(); i++)
     		if (actors.get(i).isActive()) {
 	    		actorList += actors.get(i).getActorInit() + "\t";
 	    		actorList += actors.get(i).getName() + "\n";
-	    		actorList += actors.get(i).getEffects();
+	    		actorList += actors.get(i).getEffectListString();
     		}
     	
     	return actorList;
@@ -110,16 +108,14 @@ public class Round {
     //	Setters
     public void setRound (int round) {
         int change = round - this.round;
-
+        
+        this.round = round;
+        
         for (int i = 0; i < actors.size(); i++)
             actors.get(i).change(change, getRound());
 
-        if (!actors.isEmpty()) {
+        if (!actors.isEmpty())
         	currentActor = actors.get(0);
-        	setNextActorIndex(1);
-        }
-        
-        this.round = round;
     }
 
     public void setCurrentActor(Actor actor) { currentActor = actor; }

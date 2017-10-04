@@ -1,4 +1,3 @@
-import java.util.logging.Logger;
 
 /**
  * @author Lucas
@@ -10,7 +9,6 @@ import java.util.logging.Logger;
  */
 
 public class Effect {
-    private static Logger LOGGER = Logger.getLogger(Effect.class.getName());
 
     private String description;
     private int duration, initCount, startRound, endRound;

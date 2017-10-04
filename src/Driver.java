@@ -30,7 +30,7 @@ public class Driver {
         	System.out.println("CURRENT ACTOR:\t" + round.getCurrentActor().getName());
         	System.out.println("INITIATIVE:\t" + round.getCurrentActor().getActorInit());
         	System.out.println("INIT\tNAME\n=====================");
-	        System.out.print(round.getActorList());
+	        System.out.print(round.getActorListString());
 
 	        System.out.print(">>\t");
 
@@ -64,7 +64,7 @@ public class Driver {
 	        		String description = "";
 	        		description = scanner.nextLine();
 	        		System.out.print("Dur:\t");
-	        		round.findActor(input).addEffect(description, scanner.nextInt(), round.getRound(), round.getRound());
+	        		round.findActor(input).addEffect(description, scanner.nextInt(), round.getCurrentActor().getActorInit(), round.getRound());
 	        		break;
 	        	case "he"	:
 	        		System.out.print("Actor:\t");
